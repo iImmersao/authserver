@@ -1,0 +1,50 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: authserver
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: authorization
+
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://192.168.1.8:8000
+        client:
+          client1:
+            registration:
+              client-id: client1
+              client-secret: "{noop}myClientSecretValue"
+              client-name: Client1
+              client-authentication-methods:
+                - client_secret_basic
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://127.0.0.1:8080/login/oauth2/code/users-client-oidc
+                - http://127.0.0.1:8080/authorized
+              scopes:
+                - openid
+                - read
+          client2:
+            registration:
+              client-id: client2
+              client-secret: "{noop}myClientSecretValue2"
+              client-name: Client2
+              client-authentication-methods:
+                - client_secret_basic
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://127.0.0.1:8380/login/oauth2/code/users-client-oidc
+                - http://127.0.0.1:8380/authorized
+              scopes:
+                - openid
+                - read
